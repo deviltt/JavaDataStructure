@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BST<E extends Comparable<E>> {
@@ -105,18 +107,31 @@ public class BST<E extends Comparable<E>> {
     }
 
     //前序遍历的非递归实现
+    //访问T节点，然后入栈，访问左节点，接着访问右节点
     public void preOrderNR(){
         Stack<Node> stack = new Stack<>();
-        stack.push(root);
-        while(!stack.isEmpty()){
-            Node cur = stack.pop();
-            System.out.println(cur.e);
-
-            if(cur.right != null)
-                stack.push(cur.right);
-            if(cur.left != null)
-                stack.push(cur.left);
-
+        Node node = root;
+//        stack.push(root);
+//        while(!stack.isEmpty()){
+//            Node cur = stack.pop();
+//            System.out.println(cur.e);
+//
+//            if(cur.right != null)
+//                stack.push(cur.right);
+//            if(cur.left != null)
+//                stack.push(cur.left);
+//        }
+        while(node != null || !stack.isEmpty()){
+            if(node != null){
+                System.out.println(node.e);
+                stack.push(node);
+                node = node.left;
+            }
+            else{
+                Node node1 = stack.peek();
+                stack.pop();
+                node = node1.right;
+            }
         }
     }
 
@@ -163,6 +178,155 @@ public class BST<E extends Comparable<E>> {
         postOrder(node.left);
         postOrder(node.right);
         System.out.println(node.e);
+    }
+
+    //后序遍历非递归算法
+    public void postOrderNR(){
+        Stack<Node> stack = new Stack<>();
+        Node node = root;
+        Node temp = null;   //初始化为null是因为第一个访问的叶子节点的右子树一定是空的
+
+        while(node != null || !stack.isEmpty()){
+            if(node != null){
+                stack.push(node);
+                node = node.left;
+            }
+            else{
+                node = stack.peek();
+                if(node.right != null && node.right != temp)    //如果右子树在且未被访问过
+                    node = node.right;
+                else{
+                    stack.pop();
+                    System.out.println(node.e);
+                    temp = node;    //记录最近访问过的节点
+                    node = null;    //node要重置
+                }
+            }
+        }
+    }
+
+    //BST层序遍历
+    public void levelOrder(){
+        Queue<Node> q = new LinkedList<>();
+
+        q.add(root);
+        while(!q.isEmpty()){
+            Node node = q.remove();
+            System.out.println(node.e);
+
+            if(node.left != null)
+                q.add(node.left);
+            if(node.right != null)
+                q.add(node.right);
+        }
+    }
+
+    public E minimum(){
+        if(size == 0)
+            throw new IllegalArgumentException("BST is empty!");
+
+        return minimum(root).e;
+    }
+
+    private Node minimum(Node node){
+        if(node.left == null)
+            return node;
+
+        return minimum(node.left);
+    }
+
+    public E maximum(){
+        if(size == 0)
+            throw new IllegalArgumentException("BST is empty!");
+
+        return maximum(root).e;
+    }
+
+    private Node maximum(Node node){
+        if(node.right == null)
+            return node;
+
+        return maximum(node.right);
+    }
+
+    //删除二分搜索树的最小值并返回
+    public E removeMin(){
+        E ret = minimum();
+        root = removeMin(root);
+        return ret;
+    }
+
+    private Node removeMin(Node node){
+        if(node.left == null){
+            Node rightNode = node.right;        //保留最左节点的右节点
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    //删除二分搜索树的最大值并返回
+    public E removeMax(){
+        E ret = maximum();
+        root = removeMax(root);
+        return ret;
+    }
+
+    public Node removeMax(Node node){
+        if(node.right == null){
+            Node leftNode = node.left;
+            node.left = null;
+            size--;
+            return leftNode;
+        }
+
+        node.right = removeMax(node.right);
+        return node;
+    }
+
+    public void remove(E e){
+        root = remove(root, e);
+    }
+
+    private Node remove(Node node, E e){
+        if(node == null)
+            return null;
+
+        if(e.compareTo(node.e) < 0){
+            node.left = remove(node.left, e);
+            return node;
+        }
+        else if(e.compareTo(node.e) > 0){
+            node.right = remove(node.right, e);
+            return node;
+        }
+        else{
+            if(node.left == null){
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+
+            if(node.right == null){
+                Node leftNode = node.right;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+
+            //如果左右子树都不为空，则找到该节点右子树中的最小节点
+            Node successor = minimum(node.right);
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+
+            node.left = node.right = null;
+
+            return successor;
+        }
     }
 
     @Override
