@@ -3,6 +3,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BST<E extends Comparable<E>> {
+    //创建BST节点数据结构，并构建有参构造函数，初始化节点
     class Node{
         public E e;
         public Node left, right;
@@ -210,6 +211,8 @@ public class BST<E extends Comparable<E>> {
         Queue<Node> q = new LinkedList<>();
 
         q.add(root);
+
+        //如果队列不为空
         while(!q.isEmpty()){
             Node node = q.remove();
             System.out.println(node.e);
@@ -249,7 +252,7 @@ public class BST<E extends Comparable<E>> {
         return maximum(node.right);
     }
 
-    //删除二分搜索树的最小值并返回
+    //删除二分搜索树的最小值并返回删除后的子树
     public E removeMin(){
         E ret = minimum();
         root = removeMin(root);
@@ -295,6 +298,7 @@ public class BST<E extends Comparable<E>> {
         if(node == null)
             return null;
 
+        //先要找到要删除的节点
         if(e.compareTo(node.e) < 0){
             node.left = remove(node.left, e);
             return node;
@@ -304,6 +308,7 @@ public class BST<E extends Comparable<E>> {
             return node;
         }
         else{
+            //找到该节点后判断该节点的左右子树是否为空
             if(node.left == null){
                 Node rightNode = node.right;
                 node.right = null;
@@ -320,6 +325,7 @@ public class BST<E extends Comparable<E>> {
 
             //如果左右子树都不为空，则找到该节点右子树中的最小节点
             Node successor = minimum(node.right);
+            //找到该节点后，该节点的右子树节点为node节点右子树删除最小节点后的右子树节点
             successor.right = removeMin(node.right);
             successor.left = node.left;
 
