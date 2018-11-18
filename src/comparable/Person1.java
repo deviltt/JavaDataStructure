@@ -3,7 +3,10 @@
  */
 package comparable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Person1 implements Comparable<Person1>{
     private int age;
@@ -54,10 +57,16 @@ public class Person1 implements Comparable<Person1>{
                 new Person1(14, 34),
                 new Person1(25, 32)
         };
+        List<Person1> list = new ArrayList<>();
+
+        for(int i = 0; i < p.length; i++)
+            list.add(p[i]);
 
         Arrays.sort(p);
+        Collections.sort(list);
 
         for(Person1 pp : p)
             System.out.println(pp.toString());
+        System.out.println(list);
     }
 }
