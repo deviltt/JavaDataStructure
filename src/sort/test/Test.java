@@ -1,5 +1,6 @@
 package sort.test;
 
+import sort.HeapSort;
 import sort.QuickSort;
 
 public class Test {
@@ -10,8 +11,10 @@ public class Test {
         for (int temp : arr)
             System.out.print(temp + " ");
 
-        QuickSort quickSort = new QuickSort();
-        quickSort.quickSort(arr, 0, arr.length - 1);
+//        QuickSort quickSort = new QuickSort();
+//        quickSort.quickSort(arr, 0, arr.length - 1);
+        HeapSort heapSort = new HeapSort();
+        heapSort.heapSort(arr, arr.length, 0);
 
         System.out.println();
         for (int temp : arr)
