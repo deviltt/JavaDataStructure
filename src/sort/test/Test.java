@@ -18,8 +18,13 @@ public class Test {
 //        insertSort.insertSort(arr);
 //        BinaryInsertSort binaryInsertSort = new BinaryInsertSort();
 //        binaryInsertSort.binaryInsertSort(arr);
-        ShellSort shellSort = new ShellSort();
-        shellSort.shellSort(arr);
+//        ShellSort shellSort = new ShellSort();
+//        shellSort.shellSort(arr);
+//        BubleSort bubleSort = new BubleSort();
+//        bubleSort.bubleSort(arr);
+
+        SelectSort selectSort = new SelectSort();
+        selectSort.selectSort(arr);
 
         System.out.println();
         for (int temp : arr)
