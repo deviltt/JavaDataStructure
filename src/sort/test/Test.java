@@ -1,9 +1,6 @@
 package sort.test;
 
-import sort.BinaryInsertSort;
-import sort.HeapSort;
-import sort.InsertSort;
-import sort.QuickSort;
+import sort.*;
 
 public class Test {
     public static void main(String[] args) {
@@ -19,8 +16,10 @@ public class Test {
 //        heapSort.heapSort(arr, arr.length, 0);
 //        InsertSort insertSort = new InsertSort();
 //        insertSort.insertSort(arr);
-        BinaryInsertSort binaryInsertSort = new BinaryInsertSort();
-        binaryInsertSort.binaryInsertSort(arr);
+//        BinaryInsertSort binaryInsertSort = new BinaryInsertSort();
+//        binaryInsertSort.binaryInsertSort(arr);
+        ShellSort shellSort = new ShellSort();
+        shellSort.shellSort(arr);
 
         System.out.println();
         for (int temp : arr)
