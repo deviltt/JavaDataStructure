@@ -1,5 +1,6 @@
 package sort.test;
 
+import sort.BinaryInsertSort;
 import sort.HeapSort;
 import sort.InsertSort;
 import sort.QuickSort;
@@ -16,8 +17,10 @@ public class Test {
 //        quickSort.quickSort(arr, 0, arr.length - 1);
 //        HeapSort heapSort = new HeapSort();
 //        heapSort.heapSort(arr, arr.length, 0);
-        InsertSort insertSort = new InsertSort();
-        insertSort.insertSort(arr);
+//        InsertSort insertSort = new InsertSort();
+//        insertSort.insertSort(arr);
+        BinaryInsertSort binaryInsertSort = new BinaryInsertSort();
+        binaryInsertSort.binaryInsertSort(arr);
 
         System.out.println();
         for (int temp : arr)
