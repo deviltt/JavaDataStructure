@@ -22,9 +22,12 @@ public class Test {
 //        shellSort.shellSort(arr);
 //        BubleSort bubleSort = new BubleSort();
 //        bubleSort.bubleSort(arr);
-
-        SelectSort selectSort = new SelectSort();
-        selectSort.selectSort(arr);
+//        SelectSort selectSort = new SelectSort();
+//        selectSort.selectSort(arr);
+//        MergeSort mergeSort = new MergeSort();
+//        mergeSort.mergeSort(arr);
+        RadixSort radixSort = new RadixSort();
+        radixSort.radixSort(arr);
 
         System.out.println();
         for (int temp : arr)
